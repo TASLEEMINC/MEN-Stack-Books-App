@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add New Book</title>
+  </head>
+  <body>
+    <h1>Create a New Book!</h1>
+    <!-- config a html form -> two attributes (action-> endpoint string) (method-> POSt) -->
+    <form action="/Book" method="POST">
+      <!-- system of related html tags/elements -->
+      <!-- input > name + type (attributes) -->
+      <div>
+        <label for="name">Book Name:</label>
+        <input type="text" name="name" id="name" />
+      </div>
+      <!-- <div> -->
+        <!-- <label for="isRead">Is Read:</label> -->
+        <!-- aria - accessibility standard -->
+        <!-- <input type="checkbox" name="isRead" id="isRead" /> -->
+      <!-- </div> -->
+      <!-- submit button will trigger the form request -> send data (name attribute -> { } -> endpoint) -->
+      <button type="submit">Add Books</button>
+    </form>
+  </body>
+</html>
