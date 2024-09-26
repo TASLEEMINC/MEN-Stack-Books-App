@@ -6,6 +6,7 @@
     <title>Add New Book</title>
   </head>
   <body>
+    <%- include('../partials/nav') %>
     <h1>Create a New Book!</h1>
     <!-- config a html form -> two attributes (action-> endpoint string) (method-> POSt) -->
     <form action="/Book" method="POST">
@@ -15,12 +16,12 @@
         <label for="name">Book Name:</label>
         <input type="text" name="name" id="name" />
       </div>
-      <!-- <div> -->
-        <!-- <label for="isRead">Is Read:</label> -->
-        <!-- aria - accessibility standard -->
-        <!-- <input type="checkbox" name="isRead" id="isRead" /> -->
-      <!-- </div> -->
-      <!-- submit button will trigger the form request -> send data (name attribute -> { } -> endpoint) -->
+
+      <div>
+        <label for="isRead">Is Read:</label>
+        <input type="checkbox" name="isRead" id="isRead" />
+      </div>
+
       <button type="submit">Add Books</button>
     </form>
   </body>

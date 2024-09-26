@@ -6,18 +6,18 @@
     <title>Book Edit Page</title>
   </head>
   <body>
+    <%- include('../partials/nav') %>
     <h1>Book Edit - <%= Book.name %></h1>
-    <form method="POST" action="/Book/<%=Book._id%>?_method=PUT">
+    <form method="POST" action="/Book/<%= Book._id %>?_method=PUT">
       <div>
         <label for="name">Book Name:</label>
         <input type="text" name="name" id="name" value="<%= Book.name %>" />
       </div>
-      <!-- <div> -->
-        <!-- <label for="isRead">Is Read:</label> -->
-        <!-- aria - accessibility standard -->
-        <!-- <input type="checkbox" name="isRead" id="isRead" <%= -->
-        <!-- Book.isRead ? "checked" : "" %> /> -->
-      <!-- </div> -->
+      <div>
+        <label for="isRead">Is Read:</label>
+        <input type="checkbox" name="isRead" id="isRead" <%=
+        Book.isRead ? "checked" : "" %> />
+      </div>
 
       <button type="submit">Edit Book</button>
     </form>

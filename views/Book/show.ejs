@@ -6,9 +6,10 @@
     <title>Book Show Page</title>
   </head>
   <body>
+    <%- include('../partials/nav') %>
     <h1>Book Show Page</h1>
-    <h2>Name: <%=Book.name %></h2>
-
+    <h2>Name: <%= Book.name %></h2>
+ 
     <% if (Book.isRead) { %>
     <p>This Book is read!</p>
     <% } else { %>
@@ -22,13 +23,13 @@
     <!-- the value provided with _method query param is DELETE -->
     <!-- methodOverride will automatically convert the POST to a DELETE before passing it to the correct routes -->
 
-    <form method="POST" action="/Book/<%= Book._id%>?_method=DELETE">
+    <form method="POST" action="/Book/<%= Book._id %>?_method=DELETE">
       <button type="submit">Delete Book</button>
     </form>
 
     <!-- TODO - add a link to the edit - Book/:id/edit -->
     <section>
-      <a href="/Book/<%= Book._id%>/edit">Edit Book</a>
+      <a href="/Book/<%= Book._id %>/edit">Edit Book</a>
     </section>
   </body>
 </html>

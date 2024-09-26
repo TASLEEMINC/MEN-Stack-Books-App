@@ -2,6 +2,8 @@
 const express = require("express"); // library module name
 const dotenv = require("dotenv"); // import .env variable library
 const mongoose = require("mongoose");
+const BookController = require("./controllers/Book.js");
+
 
 // middleware that help with request conversion + logging
 const methodOverride = require("method-override");
@@ -43,98 +45,26 @@ app.get("/", (req, res) => {
 
 // New Book Route - GET - /Book/new
 // ROLE -> render a form (new.ejs)
-app.get("/Book/new", (req, res) => {
-  res.render("Book/new.ejs");
-});
+app.get("/Book/new", BookController.getNewForm);
 
 // Show Route
 // ROLE -> display a single instance of a resource (Book) from the database
-app.get("/Book/:id", async (req, res) => {
-  try {
-    const foundBook = await Book.findById(req.params.id);
-    // const variable = await Model.findById()
-    const contextData = { Book: foundBook };
-    res.render("Book/show", contextData);
-  } catch (err) {
-    console.log(err);
-    res.redirect("/");
-  }
-});
+app.get("/Book/:id", BookController.getOneBook);
 
 // app.get - Book index route - GET - /Books
-app.get("/Book", async (req, res) => {
-  try {
-    const allBook = await Book.find();
-    res.render("Book/index", { Book: allBook, message: "Hello Friend" });
-  } catch (err) {
-    console.log(err);
-    res.redirect("/");
-  }
-});
+app.get("/Book", BookController.getAllBooks);
 
 // app.post - POST - /Books
-app.post("/Book", async (req, res) => {
-  if (req.body.isRead) {
-    req.body.isRead = true;
-  } else {
-    req.body.isRead = false;
-  }
-
-  try {
-    await Book.create(req.body);
-    res.redirect("/Book");
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-});
+app.post("/Book", BookController.createBook);
 
 // app.delete
-app.delete("/Book/:id", async (req, res) => {
-  try {
-    await Book.findByIdAndDelete(req.params.id);
-    // console.log(deletedBook, "response from db after deletion");
-    res.redirect("/Book");
-  } catch (err) {
-    console.log(err);
-    res.redirect(`/`);
-  }
-});
+app.delete("/Book/:id", BookController.deleteBook);
 
 // app.get - EDIT route
-app.get("/Book/:BookId/edit", async (req, res) => {
-  try {
-    const BookToEdit = await Book.findById(req.params.BookId);
-    res.render("Book/edit", { Book: BookToEdit });
-  } catch (err) {
-    console.log(err);
-    res.redirect(`/`);
-  }
-});
+app.get("/Book/:BookId/edit", BookController.getEditForm);
 
 // app.put - UPDATE route
-app.put("/Book/:id", async (req, res) => {
-  try {
-    // console.log(req.body, 'testing data from form')
-
-    if (req.body.isRead === "on") {
-      req.body.isRead = true;
-    } else {
-      req.body.isRead = false;
-    }
-
-    await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
-
-    // findByIdAndUpdate - breakdown of arguments:
-    // 1. id - the resource _id property for looking the document
-    // 2. req.body - data from the form
-    // 3. {new: true} option is provided as an optional third argument
-
-    res.redirect(`/Book/${req.params.id}`);
-  } catch (err) {
-    console.log(err);
-    res.redirect(`/Book/${req.params.id}`);
-  }
-});
+app.put("/Book/:id", BookController.editBook);
 
 // Server handler
 app.listen(PORT, () => {
